@@ -28,8 +28,7 @@ app.post("/login", async (req,res)=>{
     })
 
 
-    res.send(`recived data email : ${email}, password: ${password}`)
-
+    res.send({email , password})
 
 })
 
