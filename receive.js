@@ -1,9 +1,25 @@
 const amqp = require('amqplib');
 const express = require("express")
+const mongoose = require("mongoose")
 const app = express();
 let channel , connection ;
 let email,password ;
 
+
+mongoose.connect("mongodb://localhost/recDB")
+
+
+const recSchema = new mongoose.Schema({
+                email:{
+                    type:String,
+                    required:true
+                },
+                password:{
+                    type:String
+                }
+})
+
+const Rec = mongoose.model("rec",recSchema)
 
 app.use(express.json())
 
@@ -12,6 +28,14 @@ async function connect(){
         connection = await amqp.connect("amqp://localhost")
         channel =  await connection.createChannel();
         await channel.assertQueue("queue")
+
+       
+        channel.consume("queue" , data=>{
+            const newdata = JSON.parse(Buffer.from(data.content))
+       
+            email = newdata.email;
+            password = newdata.password;
+           })
     } catch (err){
         console.log(err)
     }
@@ -20,15 +44,14 @@ async function connect(){
 connect();
 
 app.post("/login", async (req,res)=>{
-    channel.consume("queue" , data=>{
-     const newdata = JSON.parse(Buffer.from(data.content))
-
-     email = newdata.email;
-     password = newdata.password;
+    const rec = await  new Rec({
+        email:email,
+        password:password
     })
-
-
-    res.send({email , password})
+    if(!rec) res.send("new user not created")
+    
+    rec.save();
+    res.send(rec)
 
 })
 
