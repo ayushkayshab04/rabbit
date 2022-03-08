@@ -26,7 +26,7 @@ app.get("/send",async(req,res)=>{
     }
 
     await channel.sendToQueue("queue" , Buffer.from(JSON.stringify(creds)));
-    await channel.close();
+    await channel.close()
     await connection.close();
     res.send("Done")
 })
@@ -57,5 +57,5 @@ app.get("/send",async(req,res)=>{
 
 
 app.listen(5000,()=>{
-    console.log("server started on port 3000")
+    console.log("server started on port 5000")
 })

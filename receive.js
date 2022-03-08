@@ -1,7 +1,8 @@
 const amqp = require('amqplib');
 const express = require("express")
 const app = express();
-var channel , connection ;
+let channel , connection ;
+let email,password ;
 
 
 app.use(express.json())
@@ -20,10 +21,16 @@ connect();
 
 app.post("/login", async (req,res)=>{
     channel.consume("queue" , data=>{
-      console.log((Buffer.from(JSON.parse(data.content))))
- 
+     const newdata = JSON.parse(Buffer.from(data.content))
+
+     email = newdata.email;
+     password = newdata.password;
     })
-    res.send("Done")
+
+
+    res.send(`recived data email : ${email}, password: ${password}`)
+
+
 })
 
 
