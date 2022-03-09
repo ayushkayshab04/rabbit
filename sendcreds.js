@@ -1,5 +1,8 @@
 const amqp = require('amqplib');
 const express = require("express")
+const { v4: uuidv4 } = require('uuid');
+
+
 
 const app = express();
 var channel, connection;
@@ -20,22 +23,52 @@ async function connect(){
 
 connect();
 
-
-
-
-
-app.post("/send",async(req,res)=>{
+async function sendEvent(logId,eventName,eventData){
     
+    const content = {
+        logId,
+        eventName, 
+        eventData
+    }
+    try{
+        await channel.sendToQueue("queue" , Buffer.from(JSON.stringify(content)));
+        return true
+    }catch(err){
+        console.log(err);
+        return false
+    } 
+}
+
+async function logIdAssign(req,res,next){
+    req.logId = uuidv4()
+    next();
+}
+
+function logInfo(logId,...others){
+    console.log(`[INFO] [${new Date().toISOString()}] [${logId}]`, ...others)
+}
+
+
+app.post("/send", logIdAssign,async(req,res)=>{
+    console.log(req.logId)
+    logInfo(req.logId,req.body)
+
     const creds = {
         email:req.body.email,
         password:req.body.password
     }
 
-    if(!creds)return res.send("User with given id is not found")
+    const addy = {
+        address:req.body.address
+    }
+    const ev = await sendEvent(req.logId,"SIGNUP",creds)
+    const ad = await sendEvent(req.logId,"ADD_ADDRESS",addy)
+    if(!ev)return res.send("User with given id is not found")
 
-    await channel.sendToQueue("queue" , Buffer.from(JSON.stringify(creds)));
- 
-    res.send("Done")
+    
+    res.json({
+        logId:req.logId,
+    })
 })
 
 

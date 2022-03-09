@@ -12,10 +12,15 @@ mongoose.connect("mongodb://localhost/recDB")
 const recSchema = new mongoose.Schema({
                 email:{
                     type:String,
-                    required:true
+                    required:true,
+                    unique:true
                 },
                 password:{
                     type:String
+                },
+                createdAt:{
+                    type:Date,
+                    default:Date.now()
                 }
 })
 
@@ -31,11 +36,16 @@ async function connect(){
 
        
         channel.consume("queue" , data=>{
-            const newdata = JSON.parse(Buffer.from(data.content))
-       
-            email = newdata.email;
-            password = newdata.password;
-           })
+            const eventData = JSON.parse(Buffer.from(data.content))
+            
+            console.log({eventData})
+            HandleEvent(eventData);
+            // email = newdata.email;
+            // password = newdata.password;
+           }, {
+            noAck:true,
+        })
+
     } catch (err){
         console.log(err)
     }
@@ -43,8 +53,36 @@ async function connect(){
 
 connect();
 
+
+function HandleEvent(eventMetaData){
+    const {eventName , eventData } = eventMetaData
+    switch (eventName) {
+        case "SIGNUP": 
+            signup(eventData)
+            break;
+        case "ADD_ADDRESS":
+            address(eventData)
+            break;
+        default:
+            break;
+    }
+}
+
+async function signup(signUpData){
+    console.log("signup event received", signUpData)
+
+}
+
+async function address(addressData){
+    console.log("Address received",addressData)
+
+}
+
+
+
 app.post("/login", async (req,res)=>{
-    const rec = await  new Rec({
+     try{
+        const rec = await  new Rec({
         email:email,
         password:password
     })
@@ -52,6 +90,9 @@ app.post("/login", async (req,res)=>{
     
     rec.save();
     res.send(rec)
+} catch(err){
+    res.status(500).send()
+}
 
 })
 
