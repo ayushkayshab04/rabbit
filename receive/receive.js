@@ -3,7 +3,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const app = express();
 let channel , connection ;
-let email,password ;
+let email,password, addy,u_id,d_id ;
 
 
 mongoose.connect("mongodb://localhost/recDB")
@@ -61,8 +61,11 @@ function HandleEvent(eventMetaData){
             signup(eventData)
             break;
         case "ADD_ADDRESS":
-            address(eventData)
+            addressFunc(eventData)
             break;
+        case "UPDATE":
+            update(eventData)
+            break;    
         default:
             break;
     }
@@ -70,11 +73,21 @@ function HandleEvent(eventMetaData){
 
 async function signup(signUpData){
     console.log("signup event received", signUpData)
+    email = signUpData.email,
+    password= signUpData.password
 
 }
 
-async function address(addressData){
+async function addressFunc(addressData){
     console.log("Address received",addressData)
+    address = addressData.address
+
+}
+
+async function update(updateData){
+    console.log("Update data recevied",updateData)
+    u_id = updateData.u_id
+
 
 }
 
@@ -84,7 +97,8 @@ app.post("/login", async (req,res)=>{
      try{
         const rec = await  new Rec({
         email:email,
-        password:password
+        password:password,
+        address:addy
     })
     if(!rec) res.send("new user not created")
     
@@ -96,6 +110,24 @@ app.post("/login", async (req,res)=>{
 
 })
 
+app.delete("/delete",async(req,res)=>{
+    try{
+        const rec = Rec.findByIdAndDelete
+    }catch(err){
+        res.status(500).send(err)
+    }
+})
+
+app.patch("/update",async (req,res)=>{
+    try{
+        const rec = await Rec.findByIdAndUpdate({_id:u_id},{email:req.body.email, password:req.body.password},{new:true})
+        if(!rec)res.status(404).send("Data with given id is not found")
+        
+        res.send("User updated")
+    }catch(err){
+        console.log(err)
+    }
+})
 
 
 
