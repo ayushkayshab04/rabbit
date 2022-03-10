@@ -61,9 +61,16 @@ app.post("/send", logIdAssign,async(req,res)=>{
     const addy = {
         address:req.body.address
     }
+
+    const Ucreds = {
+        _id:req.body.u_id
+    }
     const ev = await sendEvent(req.logId,"SIGNUP",creds)
     const ad = await sendEvent(req.logId,"ADD_ADDRESS",addy)
-    if(!ev)return res.send("User with given id is not found")
+    const up = await sendEvent(req.logId,"UPDATE",Ucreds)
+
+
+
 
     
     res.json({
