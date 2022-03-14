@@ -1,9 +1,9 @@
 const express = require("express")
 const send = require("./routes/creds.js")
+const {connect} = require("./controller/send.js")
 
 
-
-
+connect();
 const app = express();
 
 
