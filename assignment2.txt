@@ -1,0 +1,117 @@
+//Question 1
+function checkpair(anArray,x){
+  let pair = new Array(2)
+  for(i=0;i<anArray.length-1;i++)
+    for(j=i+1;j<anArray.length;j++){
+      if(anArray[i]+anArray[j]===x){
+        pair = [anArray.indexOf(anArray[i]),anArray.indexOf(anArray[j])]
+        return console.log("The pair exist: "+ pair )
+      }
+    }
+}
+
+//Question 2
+
+function reverse(x){
+  let rev_x = x
+  rev_x = parseInt(String(rev_x).split("").reverse((a,b)=>a-b).join(""))
+  if(rev_x>Math.pow(2,32)){
+    return 0; 
+  }
+  if(x>0){
+    return rev_x
+  }else{
+    return rev_x = rev_x*-1 
+  }
+}
+
+//Question 3
+
+function palindrome(value){
+  let rev = value.toString().split("").reverse().join("")
+  let mystr = value.toString();
+  
+  if(rev===mystr){
+   console.log("The Value is Palindrome")
+  }else {
+    console.log("The value is not palindrome")
+  }
+}
+
+//Question 4
+function convert(num){
+  var romanNo={
+    M:1000,
+    CM:900,
+    D:500,
+    CD:400,
+    C:100,
+    XC:90,
+    L:50,
+    XL:40,
+    X:10,
+    IX:9,
+    V:5,
+    IV:4,
+    I:1
+  };
+  let roman = "";
+  
+  for(let value in romanNo ){
+    while(num >= romanNo[value]){
+      roman +=value;
+      num -=romanNo[value];
+      console.log(num)
+    }
+  }
+  return roman;
+}
+
+//Question 6 
+
+function remove(anArray,int){
+  let index = anArray.indexOf(int);
+  if(index>-1){
+    anArray.splice(index,1)
+    return anArray
+  }
+}
+
+//Question no. 14
+function check(haystack,needle){
+  if(needle===""&&haystack===""){
+    return 0 
+  }else if(haystack.indexOf(needle)!==0){
+    return haystack.indexOf(needle)
+  }else{
+    return -1
+  }
+}
+
+//Question16
+function powerOfTwo(n){
+  let num = n;
+  if(num===1){
+    return true
+  }else if(n===0){
+    return false
+  }
+  while(n%3===0){
+    n/=3
+  }    
+  return n==1
+}
+
+//Question 17
+function powerOfTwo(n){
+  let num = n;
+  if(num===1){
+    return true
+  }else if(n===0){
+    return false
+  }
+  while(n%2===0){
+    n/=2
+  }    
+  return n==1
+}

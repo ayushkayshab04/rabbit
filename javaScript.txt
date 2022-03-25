@@ -1,0 +1,49 @@
+const sum = [1,2,3].reduce(function(result,item){
+  return result + item;
+},0);
+console.log(sum)
+
+//some
+
+const negativeNumbers = [1,2,4,-1,-4,5,6,-8].some(function(item){
+  return item<0;
+});
+console.log(negativeNumbers)
+
+//every
+
+const positiveNumber = [1,2,3,4,-5,6,7,8].every(function(item){
+  return item>0;
+});
+console.log(positiveNumber)
+
+//find
+
+const objects = [{id:"a"},{id:"b"},{id:"g"},{id:"f"},{id:"c"},{id:"d"},{id:"e"},{id:"h"}]
+const found = objects.find(function(item){
+  return item.id==="d";
+});
+console.log(found)
+
+
+
+///example
+const items = [
+  {name:"Bike", price: 100},
+  {name:"tv", price: 200},
+  {name:"Album", price: 10},
+  {name:"Book", price: 5},
+  {name:"Phone", price: 500},
+  {name:"Computer", price: 1000},
+  {name:"Keyboard", price: 25}
+]
+
+const totalPrice = items.reduce(function(result,item){
+  return result+item.price;
+},0);
+console.log(totalPrice);
+
+const item = [1,2,3,4,5];
+const includesTwo = item.includes(2)
+
+console.log(includesTwo)

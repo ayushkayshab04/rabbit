@@ -1,0 +1,435 @@
+//Fibonacci Series
+let n = prompt("enter the till which you the series")
+let t1 = 0;
+let t2 = 1;
+let nextTerm = t1+t2;
+
+for(i=2;i<=n;i++){
+  console.log(nextTerm)
+  t1=t2;
+  t2=nextTerm;
+  nextTerm =t1+t2;
+}
+//Replace string
+function replace(){
+let string = "Hi everybody "
+console.log(string)
+let replaceValue = "everybody"
+let nextValue = "everyone"
+let newstr = string.replace(replaceValue,nextValue);
+return newstr;
+}
+
+
+//occurance of a letter in a string
+function check(string,letter){
+  let count = 0;
+  for(i=0;i<=string.length-1;i++){
+    if(string.charAt(i)===letter){
+      count += 1
+    }
+  }
+  return count;
+}
+//loop through an object
+
+function loopobj(obj){
+  for(property in obj){
+    console.log(`${property} : ${obj[property]}`);
+  }
+}
+//random obect out of an array
+function random(anArray){
+ let item = anArray[Math.floor((Math.random()+1))*anArray.length-1]
+ return item
+}
+
+
+//merge obects
+function merge(obj1,obj2){
+  return {...obj1,...obj2}
+}
+//if string ends and starts with a cretain letter
+
+function check(string,letter){
+  if(string.charAt(string.length-1)===string.charAt(0)){
+    return console.log("True")
+  }else{
+    return console.log("False")
+  }
+}
+
+//add key value pair
+function add(obj1){
+obj.key = "value";
+return obj;
+}
+//object has key or not
+function check(obj,key){
+  
+  if(obj.hasOwnProperty(key)===null){
+    return console.log("nothing found")
+  }else{
+    return console.log("found it")
+  }
+}
+//Convert object to string
+function tostring(obj){
+  return JSON.stringify(obj)
+}
+
+
+//swaping without 3rd variable
+function swap(x,y){
+  x=x+y;
+  y=x-y;
+  x=x-y;
+  return [x,y]
+}
+
+console.log(swap(2,3))
+
+//number is positive, negative or zero
+
+number = prompt("Enter your number")
+
+if(number>0){
+  alert("your number is positive");
+}else if(number==0) {
+  alert("your number is 0");
+}else{
+  alert("your number is negative");
+}
+
+//Biggest of three numbers
+
+function biggest(x,y,z){
+  if(x>y){
+    value = x;
+  }
+  else{
+    value= y;
+  }
+  if(z>value){
+    value = z
+  }
+  return value;
+}
+
+console.log(biggest(20,10,40));
+
+//palindrome
+
+function palindrome(number){
+  var rem , temp ,final;
+  temp = number;
+  while(number>0){
+    rem = number%10;
+    number = number/10;
+    final = final*10+rem
+  }
+  if(final=temp){
+    return console.log("number is palindrome");
+  }else{
+    return console.log("number is not palindrome")
+  }
+  
+}
+
+console.log(palindrome(33))
+
+///prime number
+	
+function prime(number){
+  
+  if(number==1){
+    return console.log("number is not natural")
+  }else if(number>1){
+    for(i=2;i<=number/2;i++){
+      if(number%i==0){
+        return console.log("number is not prime")
+      }else{
+        return console.log("number is prime")
+      }
+    }
+    
+  }
+  
+}
+
+console.log(prime(19))
+
+
+//Hoisting
+
+myfunc();
+console.log(myfunc);
+console.log(x);
+
+var x =7;
+function myfunc(){
+  console.log("Namaste JavaScript");
+}
+
+
+//Sum of multi dimensional array
+
+function sum(anArray){
+let sum = 0
+for(i=0;i<=anArray.length-1;i++){
+for(j=0;j<=anArray[i].length-1;j++){
+sum += anArray[i][j]
+}
+}
+return sum;
+}
+
+//Biggest of arbitrary arguments
+
+function max(){
+var max = 0
+for(i=0;i<=arguments.length;i++){
+if(arguments[i]>max){
+max = arguments[i]
+}
+}
+return max;
+}
+
+
+
+
+
+///////patterns
+
+//pattern square
+
+function patternSquare(n){
+
+let string = "";
+
+for(i=0;i<n;i++){
+  for(j=0;j<n;j++){
+    string +="*"
+  }
+  string+="\n"
+}
+}
+
+//Reverse Pyramid
+
+let n = prompt("Enter the number of rows");
+let string = " ";
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < i; j++) {
+    string += " ";
+  }
+  for (let k = 0; k < 2 * (n-i) - 1; k++) {
+    string += "*";
+  }
+  string += "\n";
+}
+
+//Right pascal star Pattern
+
+let n = prompt("Enter the number of rows");
+let string = "";
+for (let i = 1; i <= n; i++) {
+  for (let j = 0; j < i; j++) {
+    string += "*";
+  }
+  string += "\n";
+}
+for (let i = 1; i <= n - 1; i++) {
+  for (let j = 0; j < n - i; j++) {
+    string += "*";
+  }
+  string += "\n";
+}
+
+//Right Triangle pattern
+
+let n = prompt("Enter the number of rows");
+let string = "";
+for (let i = 1; i <= n; i++) {
+  // printing spaces
+  for (let j = 0; j < n - i; j++) {
+    string += " ";
+  }
+  // printing star
+  for (let k = 0; k < i; k++) {
+    string += "*";
+  }
+  string += "\n";
+}
+
+//Left triangle pattern
+
+let n = prompt("Enter the number of Rows");
+let string = "";
+for (let i = 1; i <= n; i++) {
+  for (let j = 0; j < i; j++) {
+    string += "*";
+  }
+  string += "\n";
+}
+
+//Left pascal triangle pattern
+
+let n = prompt("Enter the number of Rows");
+let string = "";
+for (let i = 1; i <= n; i++) {
+  for (let j = 0; j < n - i; j++) {
+    string += " ";
+  }
+  for (let k = 0; k < i; k++) {
+    string += "*";
+  }
+  string += "\n";
+}
+for (let i = 1; i <= n - 1; i++) {
+  for (let j = 0; j < i; j++) {
+    string += " ";
+  }
+  for (let k = 0; k < n - i; k++) {
+    string += "*";
+  }
+  string += "\n";
+}
+
+//Downward left triangle pattern
+
+let n = prompt("Enter the number of Rows");
+let string = "";
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n - i; j++) {
+    string += "*";
+  }
+  string += "\n";
+}
+
+//Pyramid
+
+let n = prompt("Enter the number of Rows");
+let string = "";
+// External loop
+for (let i = 1; i <= n; i++) {
+  // printing spaces
+  for (let j = 1; j <= n - i; j++) {
+    string += " ";
+  }
+  // printing star
+  for (let k = 0; k < 2 * i - 1; k++) {
+    string += "*";
+  }
+  string += "\n";
+}
+
+//Diamond
+
+let n = prompt("Enter the number of Rows");
+let string = "";
+for (let i = 1; i <= n; i++) {
+  // spaces
+  for (let j = n; j > i; j--) {
+    string += " ";
+  }
+  //  star
+  for (let k = 0; k < i * 2 - 1; k++) {
+    string += "*";
+  }
+  string += "\n";
+}
+// downside
+for (let i = 1; i <= n - 1; i++) {
+  // spaces
+  for (let j = 0; j < i; j++) {
+    string += " ";
+  }
+  // star
+  for (let k = (n - i) * 2 - 1; k > 0; k--) {
+    string += "*";
+  }
+  string += "\n";
+}
+
+//HourGlass
+
+let n = prompt("Enter the number of rows");
+let string = "";
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < i; j++) {
+    string += " ";
+  }
+  for (let k = 0; k < (n - i) * 2 - 1; k++) {
+    string += "*";
+  }
+  string += "\n";
+}
+for (let i = 2; i <= n; i++) {
+  for (let j = n; j > i; j--) {
+    string += " ";
+  }
+  for (let k = 0; k < i * 2 - 1; k++) {
+    string += "*";
+  }
+  string += "\n";
+}
+
+//Print date 
+
+let weekDay = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+
+let date = new Date()
+let time = new Date();
+
+console.log("Today is : " +weekDay[date.getDay()]);
+console.log("Time is :" +time.getHours()+":"+time.getMinutes()+":"+ time.getSeconds()) ;
+
+//Duplicate items in an array
+
+function duplicate(anArray){
+  let unique;
+  return unique = [...new Set(anArray)]
+}
+
+//check if input is array
+function isarray(anArray){
+  return Array.isArray(anArray);
+}
+
+//make copy of an Array
+
+function copy(anArray){
+  let copy =[]
+  for(i=0;i<anArray.length;i++){
+    copy[i]=anArray[i];
+  }
+  return copy
+}
+
+//return first n elements of an array
+function first(anArray,n){
+  
+  if(anArray===null){
+    return void 0;
+  }
+  if(n===null){
+    return anArray[0];
+  }
+  if(n>0){
+    return anArray.slice(0,n)
+  }else{
+    return []
+  }
+}
+
+//return last n elements of an Array
+function last(anArray,n){
+  if(anArray===null)
+    {return false;}
+  if(n===null)
+    {return anArray[anArray.length-1]}
+  else{return anArray.slice(Math.max(anArray.length-n,0))}
+}
+//
